@@ -1,0 +1,243 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فرم ورود/ثبت نام</title>
+    
+    <link rel="stylesheet" href="../styles/Submit.css">
+</head>
+
+<body>
+<!-- 
+
+    ****** نام های ارسالی بک اند *******
+
+
+    USERNAME.NAME = "username"
+    PASSWORD.NAME = "password"
+    PASSWORD2.NAME = "password2"
+    SUBMIT(برای بخش ورود).NAME = "submit"
+    NUMBER.NAME = "number"
+    SUBMIT2(برای بخش ثبت نام).NAME = "submit2"
+
+    
+     -->
+    <main>
+        <div class="container">
+            <div class="header">
+                <h2 id="welcome">ورود </h2>
+            </div>
+            <form class="form" id="form" action="">
+                <div class="form-control">
+                    <label for="username">نام کاربری</label>
+                    <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید">
+                    <i class="fa fa-smile-o"></i>
+                    <i class="fa fa-frown-o"></i>
+                    <p class="errorMessage">Error Message</p>
+                </div>
+
+                <div class="form-control">
+                    <label for="password">رمز عبور</label>
+                    <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید">
+                    <i class="fa fa-smile-o"></i>
+                    <i class="fa fa-frown-o"></i>
+                    <p class="errorMessage">Error Message</p>
+                </div>
+
+                <div class="form-control">
+                    <label for="password2">تکرار رمز عبور</label>
+                    <input type="password" id="password2" name="password2" placeholder="رمز عبور خود را تکرار کنید">
+                    <i class="fa fa-smile-o"></i>
+                    <i class="fa fa-frown-o"></i>
+                    <p class="errorMessage">Error Message</p>
+                </div>
+                
+                
+               
+
+                <button id="ok" type="submit" name="submit">تایید</button>
+            </form>
+
+            <a href="#submit"><p class="create" id="create"> حساب ندارید/ثبت نام کنید </p></a>
+
+            <div class="complete-modal">
+                <h2>ثبت نام موفق بود</h2>
+            </div>
+
+            
+
+
+        </div>
+
+    </main>
+    <div class="animate-circles">
+        <div class="red circle"></div>
+        <div class="blue circle"></div>
+        <div class="red circle"></div>
+        <div class="circle"></div>
+        <div class="orange circle"></div>
+        <div class="red circle"></div>
+        <div class="circle"></div>
+        <div class="red circle"></div>
+        <div class="blue circle"></div>
+        <div class="orange circle"></div>
+    </div>
+    
+    <script>
+        const welcome = document.getElementById("welcome");
+        const create = document.getElementById("create");
+        const form = document.getElementById('form');
+        const ofcurse = document.getElementById('ok');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const password2 = document.getElementById('password2');
+        const container = document.querySelector('.container');
+        const animateCircles = document.querySelector('.animate-circles');
+        const btn = document.createElement("button");
+        let div = document.createElement("div");
+        let label = document.createElement("label");
+        let number = document.createElement("input");
+        number.name = "number";
+        let buttun = document.createElement("button");
+        buttun.name = "submit2";
+        let errorMSG = document.createElement("p");
+        
+        
+       
+        create.addEventListener("click", ()=>{
+            div.classList.add("form-control");
+            label.for = "number";
+            label.innerText = "شماره تلفن ";
+            number.type = "number";
+            number.id = "number";
+            number.classList.add("number");
+            number.placeholder = "شماره تلفن خود را وارد کنید";
+            errorMSG.classList.add("errorMessage");
+            errorMSG.innerText = "Error Message";
+            div.appendChild(label);
+            div.appendChild(number);
+            div.appendChild(errorMSG);
+            form.appendChild(div);
+            buttun.innerText = "ثبت نام";
+            buttun.type = "submit";
+            form.appendChild(buttun);
+            welcome.innerText = "ثبت نام";
+            create.style.display = "none";
+            ofcurse.style.display = "none";
+            form.appendChild(btn)
+            btn.style.marginTop = "5px";
+            btn.innerText = "برگشت";
+            
+            
+            
+        })
+
+>
+        btn.addEventListener("click", ()=>{
+            // div.style.display = "none";
+            // welcome.innerText = "ورود";
+            // buttun.innerText = "تایید";
+            // btn.style.display = "none";
+
+            location.reload();
+        })
+
+        form.addEventListener('submit', (e) => {  
+            e.preventDefault();
+
+            console.log(welcome.innerText);
+        
+
+            const usernameValue = username.value;
+            const passwordValue = password.value;
+            const password2Value = password2.value;
+            const numberValue = number.value;
+        
+
+        
+            if (usernameValue === '') {
+                errorMessage(username, "مقدار نام کاربری خالی است");
+            } else {
+                successMessage(username);
+            }
+        
+        
+            if (passwordValue === '') {
+                errorMessage(password, "مقدار رمز عبور خالی است");
+            } else {
+                successMessage(password);
+            }
+        
+            if (password2Value === '') {
+                errorMessage(password2, "مقدار رمز عبور خالی است");
+            } else if (password2Value !== passwordValue) {
+                errorMessage(password2, "رمز عبور ها با هم مطابقت ندارند");
+            } else {
+                successMessage(password2);
+            }
+
+            if(welcome.innerText == "ثبت نام"){
+                console.log("aaaa");
+                if (numberValue === '') {
+                errorMessage(number, "مقدار شماره تلفن خالی است");
+                } else {
+                    successMessage(number);
+                }
+            }
+                    
+            if(welcome.innerText == "ثبت نام"){
+        
+                if (username.parentElement.classList.contains('success') && password.parentElement.classList.contains('success') && password2.parentElement.classList.contains('success') && number.parentElement.classList.contains('success')) {
+            
+                        container.classList.add('complete');
+                        animateCircles.classList.add('complete');
+
+                    }
+                }else if(welcome.innerText == "ورود"){
+                
+                    if (username.parentElement.classList.contains('success') && password.parentElement.classList.contains('success') && password2.parentElement.classList.contains('success')) {
+            
+                        container.classList.add('complete');
+                        animateCircles.classList.add('complete');
+
+                    }
+                }
+            }
+        );
+        
+        
+        
+        function errorMessage(value, message) {
+            const formControl = value.parentElement;
+        
+            if (formControl.classList.contains('success')) {
+                formControl.classList.remove('success');
+                formControl.classList.add('error');
+            } else {
+                formControl.classList.add('error');
+            }
+            formControl.querySelector('.errorMessage').textContent = message;
+        
+        
+        }
+        
+        
+        function successMessage(value) {
+            const formControl = value.parentElement;
+        
+            if (formControl.classList.contains('error')) {
+                formControl.classList.remove('error');
+                formControl.classList.add('success');
+            } else {
+                formControl.classList.add('success');
+            }
+        }
+        
+        
+        
+    </script>
+</body>
+
+</html>
